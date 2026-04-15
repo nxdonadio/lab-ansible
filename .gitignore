@@ -1,0 +1,7 @@
+# Archivos de configuración local (CONTIENEN INFO SENSIBLE)
+inventory.ini
+ansible.cfg
+
+# Archivos de log o temporales
+*.log
+*.retry
