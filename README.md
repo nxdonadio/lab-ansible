@@ -1,4 +1,4 @@
-# Infrastructure as Code (IaC): AlmaLinux 10 Security Lab 🛡️
+# Infraestructura como código (IaC): Laboratorio de seguridad RedHat/AlmaLinux
 
 Este repositorio contiene la arquitectura de automatización para el despliegue y aseguramiento de un entorno de red empresarial basado en **AlmaLinux 10 (RHEL Binary Compatible)** utilizando **Ansible**.
 
