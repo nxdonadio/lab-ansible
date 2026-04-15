@@ -40,3 +40,6 @@ Para utilizar este laboratorio, siga estos pasos:
    ```bash
    cp inventory.example.ini inventory.ini
    cp ansible.cfg.example ansible.cfg
+   cp 01_system_update.yml.example 01_system_update.yml
+   cp 02_user_management.yml.example _user_management.yml
+   cp 03_security_hardening.yml.example 03_security_hardening.yml
