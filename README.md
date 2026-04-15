@@ -1,13 +1,13 @@
 # Infraestructura como código (IaC): Laboratorio de seguridad RedHat/AlmaLinux
 
-Este repositorio contiene la arquitectura de automatización para el despliegue y aseguramiento de un entorno de red empresarial basado en **AlmaLinux 10 (RHEL Binary Compatible)** utilizando **Ansible**.
+Este repositorio contiene la arquitectura de automatización para el despliegue y aseguramiento de un entorno de red empresarial basado en **Redhat/AlmaLinux (RHEL Binary Compatible)** utilizando **Ansible**.
 
 ## Propósito del Proyecto
 El objetivo es demostrar la capacidad de orquestar múltiples nodos de servidor, garantizando la **Idempotencia**, la consistencia de la configuración y la aplicación de políticas de seguridad (**Hardening**) de forma masiva y eficiente.
 
 ## Arquitectura del Laboratorio
 * **Control Node:** Estación de gestión con Ansible Core.
-* **Managed Nodes:** 03 servidores AlmaLinux 10 (Minimal Install).
+* **Managed Nodes:** 03 servidores Redhat/AlmaLinux (Minimal Install).
 * **Protocolo:** Comunicación cifrada vía SSH (ED25519).
 
 ## Stack Tecnológico
