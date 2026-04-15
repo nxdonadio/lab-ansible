@@ -1,0 +1,47 @@
+---
+- name: Hardening de Seguridad de Infraestructura
+  hosts: lab_servers
+  become: yes
+
+  tasks:
+    - name: Configurar Firewalld - Permitir solo SSH
+      firewalld:
+        service: ssh
+        permanent: yes
+        state: enabled
+        immediate: yes
+
+    - name: Desactivar Login de Root por SSH (Mejor Práctica CIS)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PermitRootLogin'
+        line: 'PermitRootLogin no'
+        state: present
+      notify: Restart SSH
+
+    - name: Desactivar Autenticación por Contraseña (Forzar Llaves)
+      lineinfile:
+        path: /etc/ssh/sshd_config
+        regexp: '^PasswordAuthentication'
+        line: 'PasswordAuthentication no'
+        state: present
+      notify: Restart SSH
+
+    - name: Configurar Banner de Advertencia Legal de Acceso
+      copy:
+        dest: /etc/motd
+        content: |
+          *****************************************************************
+          * ADVERTENCIA: SISTEMA DE ACCESO RESTRINGIDO - BANCO GENERAL   *
+          * Este sistema es para uso exclusivo de personal autorizado.    *
+          * Toda actividad es monitoreada y auditada.                     *
+          *****************************************************************
+        owner: root
+        group: root
+        mode: '0644'
+
+  handlers:
+    - name: Restart SSH
+      service:
+        name: sshd
+        state: restarted

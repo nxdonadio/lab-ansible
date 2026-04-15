@@ -1,6 +1,9 @@
 # Archivos de configuración local (CONTIENEN INFO SENSIBLE)
 inventory.ini
 ansible.cfg
+01_system_update.yml
+02_user_management.yml
+03_security_hardening.yml
 
 # Archivos de log o temporales
 *.log

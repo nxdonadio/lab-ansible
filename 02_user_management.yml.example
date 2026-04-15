@@ -1,0 +1,42 @@
+---
+- name: Gestión de Usuarios y Accesos SSH
+  hosts: lab_servers
+  become: yes
+
+  vars:
+    admin_user: "your_admin_user"
+
+  tasks:
+    - name: Verificar si el usuario ya existe en el sistema
+      getent:
+        database: passwd
+        key: "{{ admin_user }}"
+      register: user_exists
+      ignore_errors: yes
+
+    - name: Notificar existencia del usuario (Escenario de Clones VMware)
+      debug:
+        msg: "INFO: El usuario '{{ admin_user }}' ya existe en este nodo. Saltando creación para mantener consistencia del clon."
+      when: getent_passwd[admin_user] is defined
+
+    - name: Asegurar que el usuario existe (Solo si no fue detectado)
+      user:
+        name: "{{ admin_user }}"
+        shell: /bin/bash
+        groups: wheel
+        append: yes
+        state: present
+      when: getent_passwd[admin_user] is not defined
+
+    - name: Garantizar privilegios sudo (NOPASSWD)
+      lineinfile:
+        path: /etc/sudoers.d/{{ admin_user }}
+        line: "{{ admin_user }} ALL=(ALL) NOPASSWD: ALL"
+        create: yes
+        mode: '0440'
+
+    - name: Refrescar llave pública SSH (Asegurar persistencia)
+      authorized_key:
+        user: "{{ admin_user }}"
+        state: present
+        key: "{{ lookup('file', '~/path_to_your_key/key.pub') }}"
