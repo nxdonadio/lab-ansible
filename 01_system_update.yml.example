@@ -1,0 +1,24 @@
+### 1. `01_system_update.yml`
+*El primer paso de cualquier administrador responsable: parchar el sistema.*
+
+```yaml
+---
+- name: Actualización de Seguridad y Sistema
+  hosts: lab_servers
+  become: yes
+
+  tasks:
+    - name: Actualizar todos los paquetes del sistema (dnf update)
+      dnf:
+        name: "*"
+        state: latest
+        update_cache: yes
+
+    - name: Instalar herramientas base esenciales
+      dnf:
+        name:
+          - vim
+          - curl
+          - git
+          - net-tools
+        state: present
